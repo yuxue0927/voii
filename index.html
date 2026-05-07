@@ -5738,12 +5738,11 @@ async function downloadFile(item) {
 function copyLink(file) {
     const rawUrl = file.download_url || file.html_url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
 
-    // 核心：去掉 package 参数，让系统弹出浏览器选择框
-    const intentUrl = `intent://${rawUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end`;
-    
-    window.location.href = intentUrl;
-    showToast('请选择浏览器打开...');
+    // 直接调用系统浏览器打开，最稳定
+    window.open(rawUrl, '_system');
+    showToast('正在用系统浏览器打开...');
 }
+
 
 
 function copyProxyLink(file) {
